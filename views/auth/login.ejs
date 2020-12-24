@@ -1,0 +1,80 @@
+<%- include('../includes/head.ejs') %>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Custom Theme files -->
+<link href="/auth.css" rel="stylesheet">
+
+<!-- //Custom Theme files -->
+<!-- web font -->
+<link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
+<link href="/main.82cfd66e.css" rel="stylesheet">
+
+<!-- //web font -->
+</head>
+</head>
+
+<body>
+<%- include('../includes/nav.ejs') %>
+
+<main class="" id="main-collapse">
+	<% if(errorMessage) { %>
+		<div class="user-message user-message--error">
+			<%= errorMessage %>
+		</div>
+	<% } else { %>
+		<h1>به حساب کاربریتان وارد شوید</h1>
+	<% } %>
+		<div class="main-agileinfo">
+			<div class="agileits-top">
+				<form action="/login" method="post">
+					<label for="user" class="sign-labels">نام کاربری یا ایمیل خود را وارد کنید</label>
+					<input 
+						 class="text <%= validationError.find(e => e.param === 'userId') ? 'invalid' : '' %>"
+						 type="text" 
+						 name="userId" 
+						 placeholder="Username or Email" 
+						 value="<%= oldInput.userId %>"
+						 required
+						 >
+
+					<label for="password" class="sign-labels">رمز خود را وارد کنید</label>
+					<input
+						 class="text <%= validationError.find(e => e.param === 'userId') ? 'invalid' : '' %>"
+						 type="password" 
+						 name="password" 
+						 placeholder="Password" 
+						 value="<%= oldInput.password%>"
+						 required 
+						 >
+					
+					<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+					<input type="submit" value="ورود به حساب کاربری">
+				</form>
+				<p>حساب کاربری ندارید؟
+					<a href="/signup">حساب کاربری ایجاد کنید</a>
+				</p>
+			</div>
+		</div>
+		<!-- copyright -->
+		<div class="colorlibcopy-agile">
+			<p>© 2018 Colorlib Signup Form. All rights reserved | Design by <a href="https://colorlib.com/" target="_blank">Colorlib</a></p>
+		</div>
+		<!-- //copyright -->
+		<ul class="colorlib-bubbles">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	<!-- //main -->
+</body>
+</html>

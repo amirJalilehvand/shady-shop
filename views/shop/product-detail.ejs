@@ -1,0 +1,38 @@
+<%- include('../includes/head.ejs') %>
+
+</head>
+<body>
+<%- include('../includes/nav.ejs') %>
+
+<main class="main-shop centered" id="main-collapse">
+
+        <h1><%= (editingCart)? product.productId.title : product.title %></h1>
+        <hr>
+        <div>
+            <img class="image-responsive centered" src=<%= editingCart? product.productId.imageUrl : product.imageUrl %> alt=<%= editingCart? product.productId.title :product.title %> />
+        </div>
+        <h2>$<%= editingCart? product.productId.price : product.price %></h2>
+        <p><%= editingCart? product.productId.description : product.description %></p>
+        <% if(editingCart) { %>
+        <div style="display: flex; justify-content: center;">
+            <form action="/delete-from-cart" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input type="hidden" name="productId" value=<%= product.productId._id %> />
+                <button type="submit" class="btn btn-danger">حذف</button>
+            </form>
+            <% if(product.quantity>1) { %>
+            <form action="/reduce-from-cart" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="productId" value=<%= product.productId._id %> />
+                    <button type="submit" class="btn btn-info">کاهش</button>
+            </form>
+            <% } } %>
+             <form action="/add-to-cart" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="productId" value=<%= (editingCart)? product.productId._id : product._id %> />
+                    <button type="submit" class="btn btn-success">افزودن به سبد خرید</button>
+            </form>
+        </div>
+</main>
+</body>
+</html>

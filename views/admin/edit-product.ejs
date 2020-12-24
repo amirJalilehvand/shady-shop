@@ -1,0 +1,88 @@
+<%- include('../includes/head.ejs') %>
+
+</head>
+
+<body>
+<%- include('../includes/nav.ejs') %>
+
+<main class="" id="main-collapse">
+
+  <% if(errorMessage) { %>
+		<div class="user-message user-message--error">
+			<%= errorMessage %>
+		</div>
+	<% } %>
+
+<!-- Add your site or app content here -->
+<div>
+    <form action="<%= (editing) ? '/admin/edit-product' : '/admin/add-product' %>" method="post" toValidate>
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title"><%= (editing)?'ویرایش محصول':'افزودن محصول' %></h5>
+                </div>
+                <div class="modal-body">
+                  <p>مشخصات محصول را <%= (editing)?'ویرایش کنید':'وارد کنید' %></p>
+                </div>
+                <div class="modal-content">
+                    <label for="title">نام</label>
+                    <input 
+                      class="text <%= validationError.find(e => e.param === 'title') ? 'invalid' : '' %>"
+                      type="text" 
+                      name="title" 
+                      value=<%= oldInput.title %>
+                      >
+                    <label for="image">عکس</label>
+                    <input 
+                      class="text <%= validationError.find(e => e.param === 'imageUrl') ? 'invalid' : '' %>"
+                      type="url" 
+                      name="imageUrl" 
+                      value=<%= oldInput.imageUrl %>
+                      >
+                    <label for="price">قیمت</label>
+                    <input 
+                      class="text <%= validationError.find(e => e.param === 'price') ? 'invalid' : '' %>"
+                      type="text" 
+                      name="price" 
+                      step="0.01" 
+                      value=<%= oldInput.price %>
+                      >
+                    <label for="title">توضیحات</label>
+                    <textarea 
+                      class="text <%= validationError.find(e => e.param === 'description') ? 'invalid' : '' %>"
+                      name="description" 
+                      id="desc" 
+                      rows="5">
+                      <%= oldInput.description %>
+                    </textarea>
+                    <br>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="productId" value= <%= (editing)?oldInput._id: '' %> >
+                    <button type="submit" class="btn btn-success"><%= (editing)?'ویرایش ':'افزودن ' %></button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </form>
+    <% if (editing) { %>
+      <form action="/admin/delete-product" method="post">
+        <div class="modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-content">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input type="hidden" name="productId" value=<%= oldInput._id %> />
+                <button type="submit" class="btn btn-danger">حذف</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    <% } %>
+</div>
+</main>
+
+
+
+</html>

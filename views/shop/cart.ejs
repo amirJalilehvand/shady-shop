@@ -1,0 +1,50 @@
+<%- include('../includes/head.ejs') %>
+
+</head>
+
+<body>
+<%- include('../includes/nav.ejs') %>
+
+<main class="" id="main-collapse">
+
+<!-- Add your site or app content here -->
+<h1 class="shop-headers">:سبد خرید شما</h1>
+<div class="grid">
+  
+    <% if(products.length > 0) { %>
+      <% products.forEach(product => { %>
+      <div class="grid-item">
+        <img class="img-responsive centered" alt=<%= product.productId.title %> src=<%= product.productId.imageUrl %> >
+        <a href="./products/<%= product.productId._id %>?cartEdition=true" class="project-description">
+          <div class="project-text-holder">
+            <div class="project-text-inner">
+              <h3> <%= product.productId.title %> </h3>
+              <h5><%= product.quantity %> : تعداد </h5>
+              <form action="/delete-from-cart" method="post">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <input type="hidden" name="productId" value=<%= product.productId._id %> />
+                <button type="submit" class="btn btn-danger">حذف از سبد خرید</button>
+              </form>
+            </div>
+          </div>
+        </a>
+      </div>
+      <% }) %>
+    </div>
+    <br>
+    <form action="/create-order" method="POST" class="centered">
+      <button class="btn btn-order" type="submit">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <img src="https://img.icons8.com/nolan/50/return-purchase.png"/>
+            <h4 class="Vcenter">سفارش</h4>
+      </button>
+    </form>
+   <% } else { %>
+      <h2 class="shop-headers">متاسفانه محصولی در سبد شما نیست</h2>
+    <% } %>
+
+</main>
+
+
+
+</html>

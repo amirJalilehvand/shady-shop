@@ -1,0 +1,101 @@
+<%- include('../includes/head.ejs') %>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Custom Theme files -->
+<link href="/auth.css" rel="stylesheet">
+
+<!-- //Custom Theme files -->
+<!-- web font -->
+<link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
+<link href="/main.82cfd66e.css" rel="stylesheet">
+
+<!-- //web font -->
+</head>
+</head>
+
+<body>
+<%- include('../includes/nav.ejs') %>
+
+<main class="" id="main-collapse">
+	<% if(errorMessage) { %>
+		<div class="user-message user-message--error">
+			<%= errorMessage %>
+		</div>
+	<% } else { %>
+		<h1>حساب کاربری ایجاد کنید</h1>
+	<% } %>
+
+		<div class="main-agileinfo">
+			<div class="agileits-top">
+				<form action="/signup" method="post" toValidate>
+					<input 
+						class="text <%= validationError.find(e => e.param === 'username') ? 'invalid' : '' %>" 
+						type="text" 
+						name="username" 
+						placeholder="نام کاربری" 
+						value="<%= oldInput.username %>"
+						required=""
+						>
+					<input
+						 class="text email <%= validationError.find(e => e.param === 'email') ? 'invalid' : '' %>" 
+						 type="email"
+						name="email" 
+						 placeholder="ایمیل" 
+						 value="<%= oldInput.email %>"
+						 required
+						 >
+					<input 
+					class="text <%= validationError.find(e => e.param === 'password') ? 'invalid' : '' %>"
+					type="password" 
+					name="password" 
+					placeholder="رمز" 
+					value="<%= oldInput.password %>"
+					required
+					>
+					<input
+						 class="text w3lpass <%= validationError.find(e => e.param === 'confirmPassword') ? 'invalid' : '' %>"
+						 type="password" 
+						 name="confirmPassword" 
+						 placeholder="تایید رمز" 
+						 value="<%= oldInput.confirmPassword %>"
+						 required
+						 >
+					<div class="wthree-text">
+						<label class="anim">
+							<input type="checkbox" class="checkbox" required>
+							<span>I Agree To The Terms & Conditions</span>
+						</label>
+						<div class="clear"> </div>
+					</div>
+
+					<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+					<input type="submit" value="ایجاد حساب">
+				</form>
+				<p>حساب  کاربری دارید؟ 
+					<a href="/login"> اینجا کلیک کنید</a>
+				</p>
+			</div>
+		</div>
+		<!-- copyright -->
+		<div class="colorlibcopy-agile">
+			<p>© 2018 Colorlib Signup Form. All rights reserved | Design by <a href="https://colorlib.com/" target="_blank">Colorlib</a></p>
+		</div>
+		<!-- //copyright -->
+		<ul class="colorlib-bubbles">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+	<!-- //main -->
+</body>
+</html>
